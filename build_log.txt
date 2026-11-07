@@ -1,0 +1,39 @@
+   Compiling autocfg v1.1.0
+   Compiling winapi v0.3.9
+   Compiling libc v0.2.147
+   Compiling cc v1.0.83
+   Compiling rustc-serialize v0.3.24
+   Compiling inflate v0.1.1
+   Compiling color_quant v1.1.0
+   Compiling bitflags v0.3.3
+   Compiling lzw v0.9.0
+   Compiling byteorder v0.4.2
+   Compiling glob v0.2.11
+   Compiling crossbeam v0.2.12
+   Compiling gif v0.7.0
+   Compiling num-traits v0.2.16
+   Compiling num-integer v0.1.45
+   Compiling num-iter v0.1.43
+error[E0310]: the parameter type `T` may not live long enough
+    --> C:\Users\Пользователь\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustc-serialize-0.3.24\src\serialize.rs:1155:5
+     |
+1155 |     fn decode<D: Decoder>(d: &mut D) -> Result<Cow<'static, T>, D::Error> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |     |
+     |     the parameter type `T` must be valid for the static lifetime...
+     |     ...so that the type `T` will meet its required lifetime bounds...
+     |
+note: ...that is required by this bound
+    --> C:\Users\Пользователь\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\alloc\src\borrow.rs:169:30
+     |
+ 169 | pub enum Cow<'a, B: ?Sized + 'a>
+     |                              ^^
+help: consider adding an explicit lifetime bound
+     |
+1151 | impl<'a, T: ?Sized + 'static> Decodable for Cow<'a, T>
+     |                    +++++++++
+
+   Compiling miniz-sys v0.1.12
+For more information about this error, try `rustc --explain E0310`.
+error: could not compile `rustc-serialize` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

@@ -75,15 +75,20 @@ fn render(pixels: &mut [u8], bounds: (usize, usize), upper_left: Complex<f64>,  
     }
 }
 extern crate image;
-use image::ColorType;
-use image::png::PNGEncoder;
 use std::fs::File;
 
-fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize))->Result<(), std::io::Error> {
-    let out = File::create(filename)?;
-    let encoder = PNGEncoder::new(out);
-    encoder.encode(&pixels, bounds.0 as u32, bounds.1 as u32, ColorType::Gray(8))?;
-    Ok(())
+fn write_image(
+    filename: &str,
+    pixels: &[u8],
+    bounds: (usize, usize),
+) -> Result<(), image::ImageError> {
+    image::save_buffer(
+        filename,
+        pixels,
+        bounds.0 as u32,
+        bounds.1 as u32,
+        image::ColorType::L8,
+    )
 }
 
 
